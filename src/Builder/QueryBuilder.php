@@ -146,28 +146,28 @@ class QueryBuilder {
     /**
      * Delete documents in the collection.
      */
-    public function delete() {
+    public function delete(): int {
         $this->updateQuery("do", "delete");
 
-        return $this->persist();
+        return $this->persist()->affected;
     }
 
     /**
      * Count documents in the collection.
      */
-    public function count() {
+    public function count(): int {
         $this->updateQuery("do", "count");
 
-        return $this->persist();
+        return $this->persist()->count;
     }
 
     /**
      * Check if documents exist in the collection.
      */
-    public function exists() {
+    public function exists(): bool {
         $this->updateQuery("do", "exists");
 
-        return $this->persist();
+        return $this->persist()->exists;
     }
 
     /**
@@ -204,11 +204,11 @@ class QueryBuilder {
     /**
      * Update documents in the collection.
      */
-    public function update(array $data) {
-        $this->updateQuery("data", $data);
+    public function update(array $data): int {
+        $this->updateQuery("set", $data);
         $this->updateQuery("do", "fetchFirst");
 
-        return $this->persist();
+        return $this->persist()->affected;
     }
 
     /**
